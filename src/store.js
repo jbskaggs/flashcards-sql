@@ -58,7 +58,7 @@ export default new Vuex.Store({
         localStorage.removeItem('token');
       else
         localStorage.setItem('token', token)
-      console.log(localStorage.getItem('token'));
+      // console.log(localStorage.getItem('token'));
     },
     setLogin (state, boolean) {
       state.loggedIn = boolean;
@@ -121,7 +121,7 @@ export default new Vuex.Store({
         context.commit('setLoginError',"");
         if (error.response) {
           if (error.response.status === 409)
-            context.commit('setRegisterError',"That user name is already taken.");
+            context.commit('setRegisterError',"That user name is already taken. Try again.");
           return;
         }
         context.commit('setRegisterError',"Sorry, your request failed. We will look into it.");

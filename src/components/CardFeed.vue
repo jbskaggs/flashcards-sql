@@ -13,13 +13,13 @@
         <form>
           <textarea class="word" v-model='currentCard.word' :disabled="disabled" type="text" placeholder="Word" >{{currentCard.word}}</textarea><br><br>
           <textarea class="definition" v-model='currentCard.definition' :disabled="disabled" type="text" placeholder="Definition" >{{currentCard.definition}}</textarea><br>
-          <input v-show="seen" v-on:click="submit" v-bind:class="submit" type="submit" value="Submit">
+          <input v-show="seen" v-on:click="submit" v-bind:class="submit" type="button" value="Submit">
         </form>
       </div>
       <button v-on:click="showNextCard" class="arrow"><img src="../assets/right_arrow.png" class="rightArrow"/></button>
     </div>
     <footer>
-      Look at how I did it on <a href="https://github.com/jbskaggs/Flashcards.git">GitHub</a>!!!
+        <a href="https://github.com/jbskaggs/Flashcards.git">GitHub Repository</a>
     </footer>
   </div>
 
@@ -79,6 +79,7 @@
       },
       deleteNotecard: function () {
         this.$store.dispatch('deleteNotecard', this.currentCard).then(resp => {
+
           this.getCards();
         }).catch(err => {
           console.log(err)
@@ -265,6 +266,16 @@
   div footer {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    margin: auto;
+  }
+
+  div footer a {
+    font-size: 40px;
+    color: black;
+    text-decoration: none;
+  }
+
+  div footer a:hover {
+    color: #4f4f4f;
   }
 </style>

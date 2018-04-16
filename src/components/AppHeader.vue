@@ -2,7 +2,7 @@
   <nav>
     <ul id="menu">
       <li class="right" v-if="loggedIn">
-	<router-link :to="{ name: 'UserPage', params: {userID: user.id}}">{{user.username}}</router-link> <a @click="logout" href="#">Logout</a></p>
+	        <router-link :to="{ name: 'UserPage', params: {userID: user.id}}">{{user.username}}</router-link> <a @click="logout" style="color: black; font-size: 30px; background-color: #fff; border-radius: 8px; text-decoration: none; padding: 5px;" href="#">Logout</a></p>
       </li>
       <li class="right" v-else>
 	<form v-on:submit.prevent="login">

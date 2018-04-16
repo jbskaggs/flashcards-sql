@@ -1,6 +1,7 @@
 <template>
   <div class="column">
     <h1>Flashcards</h1>
+    <p>New here? Register below</p>
     <form v-on:submit.prevent="register">
       <input class="narrow" v-model="name" placeholder="User Name">
       <!--<p>2. Create an account.</p>-->
@@ -46,8 +47,13 @@
      width: 100px;
  }
 
+p {
+  font-weight: 700;
+  font-size: 30px;
+}
  h1 {
      margin-bottom: 0px;
+   font-size: 70px;
  }
  h2 {
      margin-top: 0px;
@@ -61,4 +67,8 @@
  .wide {
      width: 370px;
  }
+
+  .error {
+    color: black;
+  }
 </style>

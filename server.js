@@ -13,18 +13,18 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('./knexfile')[env];
 const knex = require('knex')(config);
 
-// bcrypt setup
-let bcrypt = require('bcrypt');
-const saltRounds = 10;
-
-// jwt setup
-const jwt = require('jsonwebtoken');
-let jwtSecret = process.env.jwtSecret;
-if (jwtSecret === undefined) {
-  console.log("You need to define a jwtSecret environment variable to continue.");
-  knex.destroy();
-  process.exit();
-}
+// // bcrypt setup
+// let bcrypt = require('bcrypt');
+// const saltRounds = 10;
+//
+// // jwt setup
+// const jwt = require('jsonwebtoken');
+// let jwtSecret = process.env.jwtSecret;
+// if (jwtSecret === undefined) {
+//   console.log("You need to define a jwtSecret environment variable to continue.");
+//   knex.destroy();
+//   process.exit();
+// }
 
 let cards = [{word: 'pomegranate', definition: 'shrub or small tree having large red many-seeded fruit'},
   {word: 'hefty', definition: 'of considerable weight and size'},
@@ -84,7 +84,7 @@ app.post('/api/cards', (req, res) => {
 
 app.delete('/api/cards/:id', (req, res) => {
   let card_id = req.params.id;
-  console.log(req.params);
+  // console.log(req.params);
   knex('cards').where({'id': card_id}).del().then(cards => {
     res.status(200).json({cards:cards});
   }).catch(error => {
@@ -115,7 +115,7 @@ app.post('/api/login', (req, res) => {
   if (!req.body.name || !req.body.password)
     return res.status(400).send();
   knex('users').where('name',req.body.name).first().then(user => {
-    console.log(user);
+    // console.log(user);
     if (user === undefined) {
       res.status(403).send("Invalid credentials");
       throw new Error('abort');
