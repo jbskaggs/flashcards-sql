@@ -97,7 +97,7 @@ export default new Vuex.Store({
       let token = localStorage.getItem('token');
       if (token) {
         // see if we can use the token to get my user account
-        axios.get("/api/me",getAuthHeader()).then(response => {
+        axios.get("http://104.131.167.131:3002/api/me",getAuthHeader()).then(response => {
           context.commit('setToken',token);
           context.commit('setUser',response.data.user);
         }).catch(err => {
@@ -109,7 +109,7 @@ export default new Vuex.Store({
     },
     // Registration, Login //
     register(context,user) {
-      return axios.post("/api/users", user).then(response => {
+      return axios.post("http://104.131.167.131:3002/api/users", user).then(response => {
         context.commit('setUser', response.data.user);
         context.commit('setToken', response.data.token);
         context.commit('setRegisterError',"");
@@ -128,7 +128,7 @@ export default new Vuex.Store({
       });
     },
     login(context,user) {
-      return axios.post("/api/login",user).then(response => {
+      return axios.post("http://104.131.167.131:3002/api/login",user).then(response => {
         context.commit('setUser', response.data.user);
         context.commit('setToken',response.data.token);
         context.commit('setRegisterError',"");
@@ -155,27 +155,27 @@ export default new Vuex.Store({
     },
 
     getCards(context,user) {
-      return axios.get("/api/cards/" + context.state.user.id).catch(err => {
+      return axios.get("http://104.131.167.131:3002/api/cards/" + context.state.user.id).catch(err => {
         console.log("getFeed failed:",err);
       });
     },
 
     addSubmit(context,card) {
-      return axios.post('api/cards/' + context.state.user.id, {
+      return axios.post('http://104.131.167.131:3002/api/cards/' + context.state.user.id, {
         card: card}).catch(err => {
         console.log("getFeed failed:",err);
       });
     },
 
     editSubmit(context,card) {
-      return axios.put('api/cards/' + context.state.user.id, {
+      return axios.put('http://104.131.167.131:3002/api/cards/' + context.state.user.id, {
         id: context.state.user.id,
         card: card
       })
     },
 
     deleteNotecard(context,card) {
-      return axios.delete('api/cards/' + card.id)
+      return axios.delete('http://104.131.167.131:3002/api/cards/' + card.id)
     },
 
 
