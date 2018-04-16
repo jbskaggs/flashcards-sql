@@ -16,30 +16,30 @@
  import FeedList from './FeedList';
  export default {
    name: 'UserFeed',
-   data () {
-     return {
-       text: '',
+     data () {
+       return {
+         text: '',
+       }
+     },
+     components: { FeedList },
+     computed: {
+       feed: function() {
+         return this.$store.getters.feed;
+       },
+     },
+     created: function() {
+       this.$store.dispatch('getCards');
+       // this.$store.dispatch('getFeed');
+     },
+     methods: {
+       tweet: function() {
+         this.$store.dispatch('addTweet',{
+           tweet: this.text,
+         }).then(tweet => {
+     this.text = "";
+         });
+       },
      }
-   },
-   components: { FeedList },
-   computed: {
-     feed: function() {
-       return this.$store.getters.feed;
-     },
-   },
-   created: function() {
-     this.$store.dispatch('getCards');
-     // this.$store.dispatch('getFeed');
-   },
-   methods: {
-     tweet: function() {
-       this.$store.dispatch('addTweet',{
-         tweet: this.text,
-       }).then(tweet => {
-	 this.text = "";
-       });
-     },
-   }
  }
 </script>
 

@@ -1,18 +1,12 @@
 <template>
   <nav>
     <ul id="menu">
-      <li><img src="/static/images/red-bird.png"/></li>
-      <li><router-link to="/">Home</router-link></li>
-      <li><form v-on:submit.prevent="search">
-	<input v-model="keywords" placeholder="Search">
-	<a href="#" v-on:click="search" class="search"><i class="fas fa-search"></i></a>
-      </form></li>
       <li class="right" v-if="loggedIn">
 	<router-link :to="{ name: 'UserPage', params: {userID: user.id}}">{{user.username}}</router-link> <a @click="logout" href="#">Logout</a></p>
       </li>
       <li class="right" v-else>
 	<form v-on:submit.prevent="login">
-	  <input v-model="email" placeholder="Email Address">
+	  <input v-model="name" placeholder="Username">
 	  <input v-model="password" type="password" placeholder="Password">
 	  <button class="primary" type="submit">Login</button>
 	</form>
@@ -30,7 +24,7 @@
    data () {
      return {
        keywords: '',
-       email: '',
+       name: '',
        password: '',
      }
    },
@@ -58,10 +52,10 @@
      },
      login: function() {
        this.$store.dispatch('login',{
-         email: this.email,
+         name: this.name,
          password: this.password,
        }).then(user => {
-	 this.email = '';
+	 this.name = '';
 	 this.password = '';
        });
      },

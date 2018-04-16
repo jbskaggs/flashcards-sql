@@ -111,7 +111,7 @@ export default new Vuex.Store({
     register(context,user) {
       return axios.post("/api/users", user).then(response => {
         context.commit('setUser', response.data.user);
-        // context.commit('setToken', response.data.token);
+        context.commit('setToken', response.data.token);
         context.commit('setRegisterError',"");
         context.commit('setLoginError',"");
         context.commit('setLogin', true);
@@ -133,7 +133,7 @@ export default new Vuex.Store({
         context.commit('setToken',response.data.token);
         context.commit('setRegisterError',"");
         context.commit('setLoginError',"");
-        context.commit('loggedIn', true)
+        context.commit('setLogin', true)
       }).catch(error => {
         context.commit('setUser',{});
         context.commit('setToken','');
@@ -151,18 +151,32 @@ export default new Vuex.Store({
     logout(context,user) {
       context.commit('setUser', {});
       context.commit('setToken','');
+      context.commit('setLogin', false);
     },
 
     getCards(context,user) {
-      return axios.get("/api/cards/" + context.state.user.id).then(response => {
-        // context.commit('setFeed',response.data.tweets);
-      }).catch(err => {
+      return axios.get("/api/cards/" + context.state.user.id).catch(err => {
         console.log("getFeed failed:",err);
       });
     },
 
+    addSubmit(context,card) {
+      return axios.post('api/cards/' + context.state.user.id, {
+        card: card}).catch(err => {
+        console.log("getFeed failed:",err);
+      });
+    },
 
+    editSubmit(context,card) {
+      return axios.put('api/cards/' + context.state.user.id, {
+        id: context.state.user.id,
+        card: card
+      })
+    },
 
+    deleteNotecard(context,card) {
+      return axios.delete('api/cards/' + card.id)
+    },
 
 
 

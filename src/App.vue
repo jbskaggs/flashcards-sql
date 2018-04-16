@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="body" id="app">
     <app-header/>
     <router-view/>
   </div>
@@ -15,9 +15,21 @@
 
 <style>
  /* https://color.adobe.com/CS04-color-theme-1994456/?showPublished=true */
+
+ .body {
+   font-family: 'Arvo';
+   font-size: 16px;
+   padding: 20px 100px 0px 100px;
+   background: #f3f3f3;
+   background-image: url("https://images.pexels.com/photos/139306/pexels-photo-139306.jpeg?w=1200&h=627&fit=crop&auto=compress&cs=tinysrgb");
+   background-size: 100%;
+   height: 100vh;
+ }
  body {
      font-size: 18px;
-     padding: 20px 100px 0px 100px;
+   margin: 0;
+   padding: 0;
+     /*padding: 20px 100px 0px 100px;*/
      font-family: 'Avenir', Helvetica, Arial, sans-serif;
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;

@@ -7,7 +7,7 @@ module.exports = {
     connection: {
       host     : '127.0.0.1',
       user     : 'root',
-      password : '7426',
+      password : 'sHORT$32494',
       database : 'flashcards',
       charset  : 'utf8'
     }

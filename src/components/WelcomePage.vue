@@ -1,14 +1,11 @@
 <template>
   <div class="column">
-    <img src="/static/images/red-bird.png"/>
-    <h1>Follow the Red Bird. Or anyone else.</h1>
-    <h2>Make friends in high places.</h2>
+    <h1>Flashcards</h1>
     <form v-on:submit.prevent="register">
-      <p>1. Choose a user name (this is how you will be known by others on Red Bird).</p>
-      <input class="narrow" v-model="username" placeholder="User Name">
-      <p>2. Create an account.</p>
-      <input class="wide" v-model="name" placeholder="First and Last Name"><br/>
-      <input class="narrow" v-model="email" placeholder="Email Address">
+      <input class="narrow" v-model="name" placeholder="User Name">
+      <!--<p>2. Create an account.</p>-->
+      <!--<input class="wide" v-model="name" placeholder="First and Last Name"><br/>-->
+      <!--<input class="narrow" v-model="email" placeholder="Email Address">-->
       <input class="narrow" type="password" v-model="password" placeholder="Password">
       <button class="alternate" type="submit">Register</button>
     </form>
@@ -21,8 +18,8 @@
    name: 'WelcomePage',
    data () {
      return {
-       username: '',
-       email: '',
+       // username: '',
+       // email: '',
        password: '',
        name: '',
      }
