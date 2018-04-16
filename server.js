@@ -385,4 +385,4 @@ app.delete('/api/users/:id/tweets/:tweetId', (req, res) => {
 //   });
 // });
 
-app.listen(3002, () => console.log('Server listening on port 3002!'));
+app.listen(3000, () => console.log('Server listening on port 3000!'));
