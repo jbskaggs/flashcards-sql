@@ -97,7 +97,7 @@ export default new Vuex.Store({
       let token = localStorage.getItem('token');
       if (token) {
         // see if we can use the token to get my user account
-        axios.get("http://104.236.229.19:3030/api/me",getAuthHeader()).then(response => {
+        axios.get("/api/me",getAuthHeader()).then(response => {
           context.commit('setToken',token);
           context.commit('setUser',response.data.user);
         }).catch(err => {
@@ -109,7 +109,7 @@ export default new Vuex.Store({
     },
     // Registration, Login //
     register(context,user) {
-      return axios.post("http://104.236.229.19:3030/api/users", user).then(response => {
+      return axios.post("/api/users", user).then(response => {
         context.commit('setUser', response.data.user);
         context.commit('setToken', response.data.token);
         context.commit('setRegisterError',"");
@@ -128,7 +128,7 @@ export default new Vuex.Store({
       });
     },
     login(context,user) {
-      return axios.post("http://104.236.229.19:3030/api/login",user).then(response => {
+      return axios.post("/api/login",user).then(response => {
         context.commit('setUser', response.data.user);
         context.commit('setToken',response.data.token);
         context.commit('setRegisterError',"");
@@ -155,43 +155,34 @@ export default new Vuex.Store({
     },
 
     getCards(context,user) {
-      return axios.get("http://104.236.229.19:3030/api/cards/" + context.state.user.id).catch(err => {
+      return axios.get("http://104.236.229.19/api/cards/" + context.state.user.id).catch(err => {
         console.log("getFeed failed:",err);
       });
     },
 
     addSubmit(context,card) {
-      return axios.post('http://104.236.229.19:3030/api/cards/' + context.state.user.id, {
+      return axios.post('http://104.236.229.19/api/cards/' + context.state.user.id, {
         card: card}).catch(err => {
         console.log("getFeed failed:",err);
       });
     },
 
     editSubmit(context,card) {
-      return axios.put('http://104.236.229.19:3030/api/cards/' + context.state.user.id, {
+      return axios.put('http://104.236.229.19/api/cards/' + context.state.user.id, {
         id: context.state.user.id,
         card: card
       })
     },
 
     deleteNotecard(context,card) {
-      return axios.delete('http://104.236.229.19:3030/api/cards/' + card.id)
+      return axios.delete('http://104.236.229.19/api/cards/' + card.id)
     },
-
-
-
-
-
-
-
-
-
 
 
     // Users //
     // get a user, must supply {username: username} of user you want to get
     getUser(context,user) {
-      return axios.get("/api/users/" + user.id).then(response => {
+      return axios.get("http://104.236.229.19/api/users/" + user.id).then(response => {
         context.commit('setUserView',response.data.user);
       }).catch(err => {
         console.log("getUser failed:",err);
@@ -199,7 +190,7 @@ export default new Vuex.Store({
     },
     // get tweets of a user, must supply {id:id} of user you want to get tweets for
     getUserTweets(context,user) {
-      return axios.get("/api/users/" + user.id + "/tweets").then(response => {
+      return axios.get("http://104.236.229.19/api/users/" + user.id + "/tweets").then(response => {
         context.commit('setFeedView',response.data.tweets);
       }).catch(err => {
         console.log("getUserTweets failed:",err);
@@ -207,7 +198,7 @@ export default new Vuex.Store({
     },
     // Tweeting //
     addTweet(context,tweet) {
-      axios.post("/api/users/" + context.state.user.id + "/tweets",tweet,getAuthHeader()).then(response => {
+      axios.post("http://104.236.229.19/api/users/" + context.state.user.id + "/tweets",tweet,getAuthHeader()).then(response => {
         return context.dispatch('getFeed');
       }).catch(err => {
         console.log("addTweet failed:",err);
@@ -215,14 +206,14 @@ export default new Vuex.Store({
     },
     // Searching //
     doSearch(context,keywords) {
-      return axios.get("/api/tweets/search?keywords=" + keywords).then(response => {
+      return axios.get("http://104.236.229.19/api/tweets/search?keywords=" + keywords).then(response => {
         context.commit('setFeed',response.data.tweets);
       }).catch(err => {
         console.log("doSearch failed:",err);
       });
     },
     doHashTagSearch(context,hashtag) {
-      return axios.get("/api/tweets/hash/" + hashtag).then(response => {
+      return axios.get("http://104.236.229.19/api/tweets/hash/" + hashtag).then(response => {
         context.commit('setFeed',response.data.tweets);
       }).catch(err => {
         console.log("doHashTagSearch failed:",err);
@@ -232,7 +223,7 @@ export default new Vuex.Store({
 
     // follow someone, must supply {id: id} of user you want to follow
     follow(context,user) {
-      return axios.post("/api/users/" + context.state.user.id + "/follow",user,getAuthHeader()).then(response => {
+      return axios.post("http://104.236.229.19/api/users/" + context.state.user.id + "/follow",user,getAuthHeader()).then(response => {
         context.dispatch('getFollowing');
       }).catch(err => {
         console.log("follow failed:",err);
@@ -240,7 +231,7 @@ export default new Vuex.Store({
     },
     // unfollow someone, must supply {id: id} of user you want to unfollow
     unfollow(context,user) {
-      return axios.delete("/api/users/" + context.state.user.id + "/follow/" + user.id,getAuthHeader()).then(response => {
+      return axios.delete("http://104.236.229.19/api/users/" + context.state.user.id + "/follow/" + user.id,getAuthHeader()).then(response => {
         context.dispatch('getFollowing');
       }).catch(err => {
         console.log("unfollow failed:",err);
@@ -248,7 +239,7 @@ export default new Vuex.Store({
     },
     // get list of people you are following
     getFollowing(context) {
-      return axios.get("/api/users/" + context.state.user.id + "/follow").then(response => {
+      return axios.get("http://104.236.229.19/api/users/" + context.state.user.id + "/follow").then(response => {
         context.commit('setFollowing',response.data.users);
       }).catch(err => {
         console.log("following failed:",err);
@@ -256,7 +247,7 @@ export default new Vuex.Store({
     },
     // get list of people who are following you
     getFollowers(context) {
-      return axios.get("/api/users/" + context.state.user.id + "/followers").then(response => {
+      return axios.get("http://104.236.229.19/api/users/" + context.state.user.id + "/followers").then(response => {
         context.commit('setFollowers',response.data.users);
       }).catch(err => {
         console.log("following failed:",err);
@@ -264,7 +255,7 @@ export default new Vuex.Store({
     },
     // get tweets of people you follow
     getFeed(context) {
-      return axios.get("/api/users/" + context.state.user.id + "/feed").then(response => {
+      return axios.get("http://104.236.229.19/api/users/" + context.state.user.id + "/feed").then(response => {
         context.commit('setFeed',response.data.tweets);
       }).catch(err => {
         console.log("getFeed failed:",err);
@@ -272,7 +263,7 @@ export default new Vuex.Store({
     },
     // get list of people you are following
     getFollowingView(context,user) {
-      return axios.get("/api/users/" + user.id + "/follow").then(response => {
+      return axios.get("http://104.236.229.19/api/users/" + user.id + "/follow").then(response => {
         context.commit('setFollowingView',response.data.users);
       }).catch(err => {
         console.log("following failed:",err);
@@ -280,7 +271,7 @@ export default new Vuex.Store({
     },
     // get list of people who are following you
     getFollowersView(context,user) {
-      return axios.get("/api/users/" + user.id + "/followers").then(response => {
+      return axios.get("http://104.236.229.19/api/users/" + user.id + "/followers").then(response => {
         context.commit('setFollowersView',response.data.users);
       }).catch(err => {
         console.log("following failed:",err);

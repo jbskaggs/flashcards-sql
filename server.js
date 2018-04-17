@@ -8,10 +8,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
 
+
+
+
 // Knex Setup //
 const env = process.env.NODE_ENV || 'development';
 const config = require('./knexfile')[env];
 const knex = require('knex')(config);
+
+const jwt = require('jsonwebtoken');
+let jwtSecret = process.env.jwtSecret;
+if (jwtSecret === undefined) {
+  console.log("You need to define a jwtSecret environment variable to continue.");
+  knex.destroy();
+  process.exit();
+}
 
 app.get('/api/cards/:id', (req,res) => {
   // id of the person we are interested in
@@ -123,6 +134,7 @@ app.post('/api/users', (req, res) => {
     return res.status(400).send();
   knex('users').where('name',req.body.name).first().then(user => {
     if (user !== undefined) {
+      console.log(user);
       res.status(409).send("User name already exists");
       throw new Error('abort');
     }
@@ -183,4 +195,4 @@ app.get('/api/users/:id/tweets', (req, res) => {
 });
 
 
-app.listen(3030, () => console.log('Server listening on port 3030!'));
+app.listen(3000, () => console.log('Server listening on port 3000!'));
