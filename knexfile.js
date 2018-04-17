@@ -5,8 +5,8 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: {
-      // host     : '127.0.0.1',
-      host     : '104.236.229.19',
+      host     : '127.0.0.1',
+      // host     : '104.236.229.19',
       user     : 'root',
       password : '7426',
       database : 'flashcards',
